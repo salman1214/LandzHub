@@ -36,7 +36,6 @@ const AddLand = ({ navigation }) => {
         else{
             navigation.navigate('AddedLands', { landPrice, landArea, landAddress, landDescriprion })
         }
-        // navigation.navigate('AddedLands', { landPrice, landArea, landAddress, landDescriprion })
     }
 
     return (
