@@ -16,7 +16,9 @@ function TagsComponent({ navigation }) {
                     <Text style={styles.sectionTitle}>Calculate Your Land</Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => { navigation.navigate('AddLand') }}
+            >
                 <View style={styles.Tag}>
                     <Image style={styles.logo} source={require('../Media/plus.png')} />
                     <Text style={styles.sectionTitle}>Add My Land</Text>

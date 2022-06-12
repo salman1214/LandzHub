@@ -4,6 +4,8 @@ import SplashScreen from '../SplashScreen';
 import LoginPage from '../LoginPage';
 import DrawerNavigation from './DrawerNavigation';
 import BuyLand from '../BuyLand';
+import AddLand from '../AddLand';
+import AddedLands from '../AddedLands';
 
 const Stack = createStackNavigator();
 
@@ -38,8 +40,25 @@ const StackNavigation = () => {
                 headerShown: true,
                 headerStyle: {
                     backgroundColor: '#B6F797'
-                }
+                },
+                title: 'Buy Land'
             }} name="BuyLand" component={BuyLand} />
+
+            <Stack.Screen options={{
+                headerShown: true,
+                title: 'Add Land',
+                headerStyle: {
+                    backgroundColor: '#B6F797'
+                }
+            }} name="AddLand" component={AddLand} />
+
+            <Stack.Screen options={{
+                headerShown: true,
+                title: 'Your Lands',
+                headerStyle: {
+                    backgroundColor: '#B6F797'
+                }
+            }} name="AddedLands" component={AddedLands} />
 
         </Stack.Navigator>
     )
