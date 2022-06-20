@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import LandContext from './context/land/LandContext'
 import {
     View,
     Text,
     TouchableOpacity,
     StyleSheet,
-    Image,
     TextInput,
     Alert
 } from 'react-native'
+
+// const land = []
+let id = 3
 
 const AddLand = ({ navigation }) => {
 
@@ -16,72 +19,78 @@ const AddLand = ({ navigation }) => {
     const [landArea, setLandArea] = useState('')
     const [landAddress, setLandAddress] = useState('')
     const [landDescriprion, setLandDescriprion] = useState('')
+    const [placeHolderColor, setPlaceHolderColor] = useState('black')
+
+    const l = useContext(LandContext)
 
     const Submit = () => {
-        if(!landName){
-            Alert.alert('Enter Land Name')
+        id++
+        if (!landName) {
+            setPlaceHolderColor('red')
         }
-        if(!landPrice){
-            Alert.alert('Enter Price')
+        if (!landPrice) {
+            setPlaceHolderColor('red')
         }
-        if(!landArea){
-            Alert.alert('Enter Land Area')
+        if (!landArea) {
+            setPlaceHolderColor('red')
         }
-        if(!landAddress){
-            Alert.alert('Enter Land Address')
+        if (!landAddress) {
+            setPlaceHolderColor('red')
         }
-        if(!landDescriprion){
-            Alert.alert('Enter Description')
+        if (!landDescriprion) {
+            setPlaceHolderColor('red')
         }
-        else{
-            navigation.navigate('AddedLands', { landPrice, landArea, landAddress, landDescriprion })
+        else {
+            l.land.push({ id: id, name: landName, price: landPrice, area: landArea, address: landAddress, description: landDescriprion })
+            setPlaceHolderColor('black')
+            navigation.navigate('AddedLands', l.land)
         }
     }
 
     return (
         <View style={{ backgroundColor: 'rgb(226, 219, 204)', height: '100%' }}>
-            <View style={{padding: 20}}>
+            <View style={{ padding: 20 }}>
                 <Text style={{ color: 'black', alignSelf: 'center', fontSize: 20, padding: 20, fontWeight: '600' }}>ADD YOUR LAND</Text>
 
                 <View>
                     <TextInput
-                        style={styles.input}
+                        style={[styles.input, { borderBottomColor: placeHolderColor === 'black' ? 'black' : 'red' }]}
                         placeholder='Give a name to your land *'
-                        placeholderTextColor='black'
+                        placeholderTextColor={placeHolderColor}
                         onChangeText={newText => setLandName(newText)}
                         defaultValue={landName}
                     />
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <TextInput
-                            style={styles.input2}
+                            style={[styles.input2, { borderBottomColor: placeHolderColor === 'black' ? 'black' : 'red' }]}
                             placeholder='Enter Price *'
-                            placeholderTextColor='black'
+                            placeholderTextColor={placeHolderColor}
                             onChangeText={newText => setLandPrice(newText)}
                             defaultValue={landPrice}
                         />
 
                         <TextInput
-                            style={styles.input2}
+                            style={[styles.input2, { borderBottomColor: placeHolderColor === 'black' ? 'black' : 'red' }]}
                             placeholder='Enter Land Area *'
-                            placeholderTextColor='black'
+                            placeholderTextColor={placeHolderColor}
                             onChangeText={newText => setLandArea(newText)}
                             defaultValue={landArea}
                         />
                     </View>
 
                     <TextInput
-                        style={styles.input}
+                        style={[styles.input, { borderBottomColor: placeHolderColor === 'black' ? 'black' : 'red' }]}
                         placeholder='Enter Land Address *'
-                        placeholderTextColor='black'
+                        placeholderTextColor={placeHolderColor}
                         onChangeText={newText => setLandAddress(newText)}
                         defaultValue={landAddress}
                     />
 
                     <TextInput
-                        style={styles.input}
+                        style={[styles.input, { borderBottomColor: placeHolderColor === 'black' ? 'black' : 'red' }]}
                         placeholder='Description *'
-                        placeholderTextColor='black'
+                        placeholderTextColor={placeHolderColor}
                         multiline={true}
                         onChangeText={newText => setLandDescriprion(newText)}
                         defaultValue={landDescriprion}
@@ -89,9 +98,9 @@ const AddLand = ({ navigation }) => {
 
                     <TouchableOpacity
                         onPress={Submit}
-                        style={{justifyContent: 'center', alignItems: 'center', backgroundColor: '#B6F797', padding: 10, borderRadius: 5}}
+                        style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#B6F797', padding: 10, borderRadius: 5 }}
                     >
-                        <Text style={{color: 'black'}}>Submit</Text>
+                        <Text style={{ color: 'black' }}>Submit</Text>
                     </TouchableOpacity>
 
                 </View>
@@ -103,7 +112,6 @@ const AddLand = ({ navigation }) => {
 const styles = StyleSheet.create({
     input: {
         borderBottomWidth: 1,
-        borderBottomColor: 'black',
         paddingVertical: 3,
         paddingLeft: 0,
         paddingRight: 3,
@@ -112,14 +120,13 @@ const styles = StyleSheet.create({
     },
     input2: {
         borderBottomWidth: 1,
-        borderBottomColor: 'black',
         paddingVertical: 3,
         paddingLeft: 0,
         paddingRight: 3,
         color: 'black',
         marginBottom: 30,
         width: '47%',
-    },
+    }
 })
 
 export default AddLand

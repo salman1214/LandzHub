@@ -1,13 +1,17 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import LandContext from './context/land/LandContext'
 import {
     View,
     Image,
     StyleSheet,
     TouchableOpacity,
-    Text
+    Text,
+    Alert
 } from 'react-native'
 
 function TagsComponent({ navigation }) {
+
+    const l = useContext(LandContext)
     return (
         <View style={styles.Tags}>
             <TouchableOpacity>
@@ -32,10 +36,19 @@ function TagsComponent({ navigation }) {
                     <Text style={styles.sectionTitle}>Buy Land</Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => {
+                    if (l.land.length > 0) {
+                        navigation.navigate('AddedLands', l.land)
+                    }
+                    else {
+                        Alert.alert('Please Add Land!')
+                    }
+                }}
+            >
                 <View style={styles.Tag}>
                     <Image style={styles.logo} source={require('../Media/location-pin.png')} />
-                    <Text style={styles.sectionTitle}>Sell Land</Text>
+                    <Text style={styles.sectionTitle}>My Lands</Text>
                 </View>
             </TouchableOpacity>
         </View>

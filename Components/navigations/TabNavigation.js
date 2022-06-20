@@ -18,8 +18,6 @@ const Tab = createBottomTabNavigator();
 
 function TabNavigation(props) {
 
-    // const [title, setTitle] = useState('Home')
-
     return (
         <>
             <NavBarComponent navigation={props.navigation}/>
@@ -41,9 +39,6 @@ function TabNavigation(props) {
                 }}
             >
                 <Tab.Screen
-                    // listeners={() => {
-                    //     setTitle('Home')
-                    // }}
                     options={{
                         headerShown: false,
                         tabBarIcon: ({ focused }) => (

@@ -11,7 +11,7 @@ function Notification(props) {
     <View style={styles.sectionContainer}>
         {/* <NavBarComponent navigation={props.navigation} /> */}
         <View style={styles.Header}>
-          <Text style={styles.Heading}>Notification</Text>
+          <Text style={styles.Heading}>Hussain Malak</Text>
         </View>
     </View>
   )

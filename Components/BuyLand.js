@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState,useContext, useEffect } from 'react'
 import {
     View,
     Text,
@@ -8,6 +8,8 @@ import {
     TouchableOpacity,
     Linking
 } from 'react-native'
+import LandContext from './context/land/LandContext'
+
 
 
 const api = [{
@@ -20,37 +22,62 @@ const api = [{
 }]
 
 
+
+
 const BuyLand = () => {
+
+    const [remove, setRemove] = useState('Remove')
+    const sale = useContext(LandContext)
+    
+    useEffect(() => {
+        console.log('Worked')
+        setRemove('Remove')
+    }, [remove])
+
     return (
         <View style={{ backgroundColor: 'rgb(226, 219, 204)', height: '100%' }}>
             <ScrollView style={styles.container}>
-                {api.map(({id, image, landPrice, address, landArea, addedTime}) => (
+                {sale.forSale.map(({ id, name, price, area, address, description }) => (
                     <View key={id} style={styles.tag}>
-                        <Image source={{uri: image}} style={{width: '40%', height: '100%', borderBottomLeftRadius: 10, borderTopLeftRadius: 10}} />
+                        <Image source={require('../Media/farm.jpg')} style={{ width: '40%', height: '100%', borderBottomLeftRadius: 10, borderTopLeftRadius: 10 }} />
                         <View style={styles.landData}>
-                            <Text style={{color: 'grey', fontSize: 10, alignSelf: 'flex-end', marginBottom: 10}}>{addedTime}</Text>
-                            <Text style={styles.landPrice}>PKR {landPrice}</Text>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <Text style={{ color: 'grey', fontSize: 10, alignSelf: 'flex-end', marginBottom: 10 }}>3 Hours</Text>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        const object = { id, name, price, area, address, description }
+                                        sale.removeItem(object)
+                                        setRemove('Removed')
+                                        console.log(sale.forSale)
+                                        // console.log(object)
+                                    }}
+                                    style={{ borderWidth: 2, paddingVertical: 5, paddingHorizontal: 10, alignItems: 'center', borderRadius: 5, borderColor: 'green' }}
+                                >
+                                    <Text style={{ color: 'green', fontSize: 10, alignSelf: 'flex-end', fontWeight: '500', fontSize: 12 }}>{remove}</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <Text style={styles.landPrice}>PKR {price}</Text>
                             <Text style={styles.address}>{address}</Text>
-                            <Text style={styles.landArea}>{landArea}</Text>
-                            <View style={{flexDirection: 'row', marginVertical: 10}}>
-                                <TouchableOpacity style={{marginRight: 10, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: 'green', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 3}}>
-                                    <Text style={{color: 'green'}}>EMAIL</Text>
+                            <Text style={styles.landArea}>{area}</Text>
+                            <View style={{ flexDirection: 'row', marginVertical: 10 }}>
+                                <TouchableOpacity style={{ marginRight: 10, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: 'green', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 3 }}>
+                                    <Text style={{ color: 'green' }}>EMAIL</Text>
                                 </TouchableOpacity>
 
                                 <TouchableOpacity
-                                    onPress={() => {Linking.openURL('tel:03325275579')}}
-                                    style={{marginRight: 10, justifyContent: 'center', alignItems: 'center', backgroundColor: 'green', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 3}}
+                                    onPress={() => { Linking.openURL('tel:03325275579') }}
+                                    style={{ marginRight: 10, justifyContent: 'center', alignItems: 'center', backgroundColor: 'green', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 3 }}
                                 >
-                                    <Text style={{color: 'white'}}>CALL</Text>
+                                    <Text style={{ color: 'white' }}>CALL</Text>
                                 </TouchableOpacity>
-                                
-                                <TouchableOpacity style={{justifyContent: 'center'}}>
-                                    <Image source={require('../Media/whatsapp.png')} style={{width: 25, height: 25}} />
+
+                                <TouchableOpacity style={{ justifyContent: 'center' }}>
+                                    <Image source={require('../Media/whatsapp.png')} style={{ width: 25, height: 25 }} />
                                 </TouchableOpacity>
                             </View>
                         </View>
                     </View>
-                  ))}
+                ))}
             </ScrollView>
         </View>
     )
