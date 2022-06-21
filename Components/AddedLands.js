@@ -20,16 +20,17 @@ const AddedLands = () => {
     return (
         <View style={{ backgroundColor: 'rgb(226, 219, 204)', height: '100%' }}>
             <ScrollView style={styles.container}>
-                {l.land.map(({ id, name, price, area, address, description }) => (
+                {l.land.map(({ id, photo, name, price, area, address, description }) => (
                     <View key={id} style={styles.tag}>
-                        <Image source={require('../Media/farm.jpg')} style={{ width: '40%', height: '100%', borderBottomLeftRadius: 10, borderTopLeftRadius: 10 }} />
+                        {console.log(photo)}
+                        <Image source={{uri: photo}} style={{ width: '40%', height: '100%', borderBottomLeftRadius: 10, borderTopLeftRadius: 10 }} />
                         <View style={styles.landData}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
 
                                 <Text style={{ color: 'grey', fontSize: 10, marginBottom: 10 }}>3 hours</Text>
                                 <TouchableOpacity
                                     onPress={() => {
-                                        l.forSale.push({ id, name, price, area, address, description })
+                                        l.forSale.push({ id, photo, name, price, area, address, description })
                                         Alert.alert('Added')
                                     }}
                                     style={{ borderWidth: 2, paddingVertical: 5, paddingHorizontal: 10, alignItems: 'center', borderRadius: 5, borderColor: 'green'}}

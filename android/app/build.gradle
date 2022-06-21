@@ -134,7 +134,8 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    defaultConfig {
+
+    defaultConfig {        
         applicationId "com.awesomeproject"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion

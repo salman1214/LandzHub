@@ -1,15 +1,17 @@
 import React, { useState, useContext } from 'react'
 import LandContext from './context/land/LandContext'
+import * as ImagePicker from "react-native-image-picker"
 import {
     View,
     Text,
     TouchableOpacity,
     StyleSheet,
     TextInput,
-    Alert
+    Alert,
+    Button,
+    Image
 } from 'react-native'
 
-// const land = []
 let id = 3
 
 const AddLand = ({ navigation }) => {
@@ -20,8 +22,23 @@ const AddLand = ({ navigation }) => {
     const [landAddress, setLandAddress] = useState('')
     const [landDescriprion, setLandDescriprion] = useState('')
     const [placeHolderColor, setPlaceHolderColor] = useState('black')
+    const [state, setState] = useState(null)
+    const [photo, setPhoto] = useState(false)
 
     const l = useContext(LandContext)
+
+    const handleChoosePhoto = () => {
+        const options = {
+            noData: true
+        }
+        ImagePicker.launchImageLibrary(options, response => {
+            console.log('response ', response.assets[0].uri)
+            if(response.assets[0].uri){
+                setState(response.assets[0].uri)
+                setPhoto(true)
+            }
+        })
+    }
 
     const Submit = () => {
         id++
@@ -40,15 +57,18 @@ const AddLand = ({ navigation }) => {
         if (!landDescriprion) {
             setPlaceHolderColor('red')
         }
+        if(!photo) {
+            Alert.alert('Please select an image')
+        }
         else {
-            l.land.push({ id: id, name: landName, price: landPrice, area: landArea, address: landAddress, description: landDescriprion })
+            l.land.push({ id: id, photo: state, name: landName, price: landPrice, area: landArea, address: landAddress, description: landDescriprion })
             setPlaceHolderColor('black')
             navigation.navigate('AddedLands', l.land)
         }
     }
 
     return (
-        <View style={{ backgroundColor: 'rgb(226, 219, 204)', height: '100%' }}>
+        <View style={{ backgroundColor: 'rgb(226, 219, 204)', flex: 1 }}>
             <View style={{ padding: 20 }}>
                 <Text style={{ color: 'black', alignSelf: 'center', fontSize: 20, padding: 20, fontWeight: '600' }}>ADD YOUR LAND</Text>
 
@@ -97,11 +117,26 @@ const AddLand = ({ navigation }) => {
                     />
 
                     <TouchableOpacity
+                        onPress={handleChoosePhoto}
+                        style={{ justifyContent: 'center', alignItems: 'center', borderColor: 'green', borderWidth: 1, padding: 10, borderRadius: 5 }}
+                    >
+                        <Text style={{ color: 'green' }}>SELECT IMAGE</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
                         onPress={Submit}
-                        style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#B6F797', padding: 10, borderRadius: 5 }}
+                        style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#B6F797', padding: 10, borderRadius: 5, marginTop: 10 }}
                     >
                         <Text style={{ color: 'black' }}>Submit</Text>
                     </TouchableOpacity>
+
+                    <View style={{marginTop: 20}}>
+                        {state && (
+                            <Image source={{uri: state}}
+                                style={{width: '100%', height: 200}}
+                            />
+                        )}
+                    </View>
 
                 </View>
             </View>

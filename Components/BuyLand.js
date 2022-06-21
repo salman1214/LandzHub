@@ -30,22 +30,21 @@ const BuyLand = () => {
     const sale = useContext(LandContext)
     
     useEffect(() => {
-        console.log('Worked')
         setRemove('Remove')
     }, [remove])
 
     return (
         <View style={{ backgroundColor: 'rgb(226, 219, 204)', height: '100%' }}>
             <ScrollView style={styles.container}>
-                {sale.forSale.map(({ id, name, price, area, address, description }) => (
+                {sale.forSale.map(({ id, photo, name, price, area, address, description }) => (
                     <View key={id} style={styles.tag}>
-                        <Image source={require('../Media/farm.jpg')} style={{ width: '40%', height: '100%', borderBottomLeftRadius: 10, borderTopLeftRadius: 10 }} />
+                        <Image source={{uri: photo}} style={{ width: '40%', height: '100%', borderBottomLeftRadius: 10, borderTopLeftRadius: 10 }} />
                         <View style={styles.landData}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <Text style={{ color: 'grey', fontSize: 10, alignSelf: 'flex-end', marginBottom: 10 }}>3 Hours</Text>
                                 <TouchableOpacity
                                     onPress={() => {
-                                        const object = { id, name, price, area, address, description }
+                                        const object = { id, photo, name, price, area, address, description }
                                         sale.removeItem(object)
                                         setRemove('Removed')
                                         console.log(sale.forSale)
