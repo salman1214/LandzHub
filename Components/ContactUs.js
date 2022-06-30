@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, { useState, useRef } from 'react'
 import {
   View,
   Text,
@@ -17,7 +17,7 @@ function ContactUs(props) {
   const [value, setValue] = useState("");
   const [formattedValue, setFormattedValue] = useState("");
 
-  
+
   const placeHolderColor = 'black'
 
   return (
@@ -58,12 +58,21 @@ function ContactUs(props) {
               autoFocus
             />
           </View>
+
+          <TextInput
+            style={[styles.Input, { borderBottomColor: placeHolderColor === 'black' ? 'black' : 'red', marginTop: 20 }]}
+            placeholder='Enter a message *'
+            placeholderTextColor={placeHolderColor}
+            multiline={true}
+            // onChangeText={newText => setLandDescriprion(newText)}
+            // defaultValue={landDescriprion}
+          />
           <TouchableOpacity style={styles.loginBtn}>
-            <Text style={styles.loginBtnText}>Sign Up</Text>
+            <Text style={styles.loginBtnText}>Send</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          {/* <TouchableOpacity>
             <Text style={styles.forgotText}>View Terms & Conditions</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
     </ScrollView>

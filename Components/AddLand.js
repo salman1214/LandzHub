@@ -32,7 +32,7 @@ const AddLand = ({ navigation }) => {
             noData: true
         }
         ImagePicker.launchImageLibrary(options, response => {
-            console.log('response ', response.assets[0].uri)
+            // console.log('response ', response.assets[0].uri)
             if(response.assets[0].uri){
                 setState(response.assets[0].uri)
                 setPhoto(true)

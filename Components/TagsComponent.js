@@ -38,12 +38,12 @@ function TagsComponent({ navigation }) {
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={() => {
-                    if (l.land.length > 0) {
+                //     if (l.land.length > 0) {
                         navigation.navigate('AddedLands', l.land)
-                    }
-                    else {
-                        Alert.alert('Please Add Land!')
-                    }
+                //     }
+                //     else {
+                //         Alert.alert('Please Add Land!')
+                //     }
                 }}
             >
                 <View style={styles.Tag}>

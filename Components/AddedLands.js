@@ -10,17 +10,38 @@ import {
     Linking,
     Alert
 } from 'react-native'
+import axios from 'axios'
+
 
 const AddedLands = () => {
 
+    
     const [state, setState] = useState('Add to Sale')
+    const [lands, setLands] = useState([])
+    
+    useEffect(() => {
+        
+        // .then((res) => {
+        //     console.log(res.data)
+        //     // setLands(res.data)
+        // })
+    }, [])
 
     const l = useContext(LandContext)
 
     return (
         <View style={{ backgroundColor: 'rgb(226, 219, 204)', height: '100%' }}>
             <ScrollView style={styles.container}>
-                {l.land.map(({ id, photo, name, price, area, address, description }) => (
+
+                <TouchableOpacity
+                    onPress={async()=>{
+                        const data =await axios.get('192.168.8.104:3000/getland')
+                        console.log("dataaaa======>",data);
+                    }}
+                    >
+                    <Text>Hello</Text>
+                </TouchableOpacity>
+                {lands.map(({ id, image, title, price, size, address, description }) => (
                     <View key={id} style={styles.tag}>
                         {console.log(photo)}
                         <Image source={{uri: photo}} style={{ width: '40%', height: '100%', borderBottomLeftRadius: 10, borderTopLeftRadius: 10 }} />
